@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Covid 19 Symptoms Checker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+      ['Status', 'Count'],
+      ['Confirmed', 286926],
+      ['Recovered', 140924],
+      ['Deaths', 8106],
+      ['Active', 137881]
+      ]);
+      var options = {'title':'Daily Status', 'width':487, 'height':300,colors: ['#ff073a','#28a745','#6c757d','#007bff']};
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
+    </script>
+    
+    <style>
+        .row.content {
+            height: 1500px
+        }
+
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav">
+                <center>
+                    <h4>COVID 19</h4>
+                </center>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="http://127.0.0.1:8000/home/">Home</a></li>
+                    <li><a class="active" href="http://127.0.0.1:8000/status/">Status</a></li>
+                    <li><a href="http://127.0.0.1:8000/symptoms/">Check Symptoms</a></li>
+                    <li><a href="http://127.0.0.1:8000/contact/">Contact Us</a></li>
+                </ul><br>
+                <div id="piechart"></div>
+            </div>
+
+            <div class="col-sm-9">
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+                            <th scope="col">State</th>
+                            <th scope="col">Confirmed</th>
+                            <th scope="col">Recovered</th>
+                            <th scope="col">Death</th>
+                            <th scope="col">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for row in table%}
+                        <tr>
+                            {%for val in row %}
+                                {%if forloop.counter == 1%}
+                                <td scope="row" style="color:black;">{{val}}</td>
+                                {%endif%}
+                                {%if forloop.counter == 2%}
+                                <td scope="row" style="color:#ff073a;">{{val}}</td>
+                                {%endif%}
+                                {%if forloop.counter == 3%}
+                                <td scope="row" style="color:#28a745;">{{val}}</td>
+                                {%endif%}
+                                {%if forloop.counter == 4%}
+                                <td scope="row" style="color:#6c757d;">{{val}}</td>
+                                {%endif%}
+                                {%if forloop.counter == 5%}
+                                <td scope="row" style="color:#007bff;">{{val}}</td>
+                                {%endif%}
+                            {%endfor%}
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
